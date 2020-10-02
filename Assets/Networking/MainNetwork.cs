@@ -20,6 +20,8 @@ namespace Networking
         {
             _websocket = new WebSocket(url);
 
+            InitializePackets();
+
             _websocket.OnMessage += HandleMessage;
 
             await _websocket.Connect();
@@ -30,7 +32,11 @@ namespace Networking
             _packetHandlers = new Dictionary<int, PacketHandler>()
             {
                 { (int)PacketEnum.SERVER_JOIN_ROOM, ClientHandle.JoinRoom},
-                { (int)PacketEnum.SERVER_LEAVE_ROOM, ClientHandle.JoinRoom},
+                { (int)PacketEnum.SERVER_LEAVE_ROOM, ClientHandle.LeaveRoom},
+                { (int)PacketEnum.SERVER_LIST_ROOM, ClientHandle.ListRoom},
+                { (int)PacketEnum.SERVER_EVENT, ClientHandle.Event},
+                { (int)PacketEnum.SERVER_CONNECT, ClientHandle.Connect},
+                { (int)PacketEnum.SERVER_DISCONNECT, ClientHandle.Disconnect},
             };
         }
 
@@ -41,7 +47,7 @@ namespace Networking
                 var packet_id = packet.ReadInt();
                 if ( _packetHandlers.TryGetValue(packet_id, out PacketHandler value))
                 {
-                    _packetHandlers[packet_id](packet);
+                    value(packet);
                 }
             }
         }

@@ -13,5 +13,30 @@ namespace Networking
         {
 
         }
+
+        public static void LeaveRoom(Packet packet)
+        {
+
+        }
+
+        public static void ListRoom(Packet packet)
+        {
+
+        }
+
+        public static void Event(Packet packet)
+        {
+
+        }
+
+        public static void Connect(Packet packet)
+        {
+
+        }
+
+        public static void Disconnect(Packet packet)
+        {
+
+        }
     }
 }
