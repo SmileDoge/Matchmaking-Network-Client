@@ -1,4 +1,5 @@
-﻿using NativeWebSocket;
+﻿using Assets.Networking;
+using NativeWebSocket;
 using Networking.Packets;
 using System;
 using System.Collections.Generic;
@@ -13,6 +14,9 @@ namespace Networking
 
         public delegate void PacketHandler(Packet packet);
 
+        public Room Room { get; private set;}
+        public static int ID { get; private set; }
+
         private static WebSocket _websocket;
         private static Dictionary<int, PacketHandler> _packetHandlers = new Dictionary<int, PacketHandler>();
 
@@ -21,6 +25,8 @@ namespace Networking
             _websocket = new WebSocket(url);
 
             InitializePackets();
+
+            ID = 0;
 
             _websocket.OnMessage += HandleMessage;
 
@@ -39,7 +45,13 @@ namespace Networking
                 { (int)PacketEnum.SERVER_DISCONNECT, ClientHandle.Disconnect},
             };
         }
-
+        public static void SetID(int id) 
+        {
+            if(ID != 0)
+            {
+                ID = id;
+            }
+        }
         private static void HandleMessage(byte[] data)
         {
             using ( var packet = new Packet(data) )

@@ -67,6 +67,8 @@
     <Compile Include="Assets\Networking\MainNetwork.cs" />
     <Compile Include="Assets\Networking\Packets\Packet.cs" />
     <Compile Include="Assets\Networking\Packets\PacketEnum.cs" />
+    <Compile Include="Assets\Networking\Player.cs" />
+    <Compile Include="Assets\Networking\Room.cs" />
     <Compile Include="Assets\Networking\ThreadManager.cs" />
     <Compile Include="Assets\Scripts\Network.cs" />
     <Compile Include="Assets\Scripts\WebSocket\WebSocket.cs" />

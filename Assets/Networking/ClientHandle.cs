@@ -31,7 +31,8 @@ namespace Networking
 
         public static void Connect(Packet packet)
         {
-
+            int id = packet.ReadInt();
+            MainNetwork.SetID(id);
         }
 
         public static void Disconnect(Packet packet)
