@@ -1,22 +1,29 @@
-﻿using NativeWebSocket;
+﻿using Assets.Networking;
+using Networking;
 using UnityEngine;
 
-public class Network : MonoBehaviour
+public class Network : MonoBehaviourNetworkingCallbacks
 {
-    private WebSocket _socket;
     
-    async void Start()
+    void Start()
     {
-        _socket = new WebSocket("ws://localhost:7000");
-
-        _socket.OnOpen += () =>
-        {
-            Debug.Log("Connected");
-        };
-
-        await _socket.Connect();
+        MainNetwork.Connect("Smile");
     }
-    
+
+    override public void OnServerConnected()
+    {
+        Debug.Log("123");
+
+        MainNetwork.CreateRoom("123123", 5);
+
+        MainNetwork.ListRooms();
+    }
+
+    void OnApplicationQuit()
+    {
+        MainNetwork.Disconnect();
+    }
+
     void Update()
     {
         
